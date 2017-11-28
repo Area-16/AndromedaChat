@@ -1,0 +1,21 @@
+{
+  "name": "chatAndromeda",
+  "version": "0.0.1",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "bufferutil": "^3.0.3",
+    "meteor-node-stubs": "^0.3.2",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "socket.io": "^2.0.4",
+    "utf-8-validate": "^3.0.4"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
