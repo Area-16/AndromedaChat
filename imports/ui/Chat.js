@@ -14,7 +14,7 @@ class Chat extends Component {
       timeframe: '',
       messages: []
     }
-    this.socket = io(`192.168.15.119:3080`)
+    this.socket = io(`localhost:3080`)
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.addMessage(data)
     })
