@@ -16,7 +16,7 @@ First install [Meteor.js](https://www.meteor.com/install)
 ### Installing
 
 ```sh
-git clone https://github.com/dougtq/ujst-tdd.git
+git clone https://github.com/dougtq/AndromedaChat.git
 ```
 
 ```sh
