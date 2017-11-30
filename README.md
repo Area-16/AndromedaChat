@@ -18,6 +18,7 @@ First install [Meteor.js](https://www.meteor.com/install)
 ```sh
 git clone https://github.com/dougtq/AndromedaChat.git
 ```
+01
 
 ```sh
 cd AndromedaChat && yarn
