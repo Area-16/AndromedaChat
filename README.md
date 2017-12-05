@@ -51,7 +51,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* **Douglas Alves** - [Focus](https://github.com/FocusDesenvolvimento)
+* [Douglas Alves](https://github.com/dougtq)
 
 <!-- See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project. -->
 

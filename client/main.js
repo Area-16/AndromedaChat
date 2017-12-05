@@ -3,11 +3,13 @@ import { Meteor } from 'meteor/meteor'
 import { render } from 'react-dom'
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import App from '../imports/ui/App.js'
+import App from '../imports/ui/App'
+// import Login from '../imports/ui/Login'
 
 Meteor.startup(() => {
   render(
-    // <MuiThemeProvider> </MuiThemeProvider>
     <App />
     , document.getElementById('render-app'))
-})
+  })
+  // <MuiThemeProvider> </MuiThemeProvider>
+  

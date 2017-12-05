@@ -29,7 +29,7 @@ class Chat extends Component {
         author: this.state.username,
         message: this.state.message
       })
-  
+
       this.setState({
         message: ''
       })
@@ -52,9 +52,9 @@ class Chat extends Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container jumbotron'>
         <div className='row'>
-          <div className='col-6 offset-md-3' align='center'>
+          <div className='col-8 offset-md-2' align='center'>
             <div className='card'>
               <div className='card-body'>
                 <div className='card-title'>
@@ -74,7 +74,7 @@ class Chat extends Component {
               </div>
               <div className='card-footer'>
                 <input
-                  type='text' maxlength='20'
+                  type='text' maxLength='20'
                   placeholder={this.userHolder}
                   className='form-control'
                   value={this.state.username}
