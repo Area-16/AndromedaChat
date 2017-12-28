@@ -39,20 +39,9 @@ The chosen code style is [Standard](https://github.com/standard/standard)
 * [Express](http://expressjs.com/) - The server framework used
 * [Socket.io](https://socket.io/) - The real-time engine used
 
-
-## Contributing
-
-Please read [CONTRIBUTING.md] for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
-
 ## Authors
 
 * [Douglas Alves](https://github.com/dougtq)
-
-<!-- See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project. -->
 
 ## License
 
