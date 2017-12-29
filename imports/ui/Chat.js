@@ -14,12 +14,22 @@ class Chat extends Component {
       timeframe: '',
       messages: []
     }
+
     this.socket = io(`localhost:3080`)
+    
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.addMessage(data)
     })
+    
     this.sendMessage = this.sendMessage.bind(this)
     this.keyVerify = this.keyVerify.bind(this)
+    this.setUser = this.setUser.bind(this)
+  }
+
+  setUser (e) {
+    if (this.state.username) {
+      document.getElementById('user').setAttribute('disabled', 'true')
+    }
   }
 
   sendMessage (e) {
@@ -37,7 +47,6 @@ class Chat extends Component {
   }
 
   addMessage (data) {
-    console.log(data)
     this.setState({
       messages: [...this.state.messages, data]
     })
@@ -45,7 +54,7 @@ class Chat extends Component {
 
   keyVerify (e) {
     if (e.key === 'Enter') {
-      let btn = document.getElementById('btnEnvia')
+      const btn = document.getElementById('btnEnvia')
       btn.click()
     }
   }
@@ -75,8 +84,9 @@ class Chat extends Component {
               <div className='card-footer'>
                 <input
                   type='text' maxLength='20'
+                  id='user'
                   placeholder={this.userHolder}
-                  className='form-control'
+                  className='form-control' onBlur={this.setUser}
                   value={this.state.username}
                   onChange={ev => this.setState({ username: ev.target.value })}
                 />
