@@ -27,6 +27,8 @@ Then run the project
 yarn start
 ```
 
+Open your browser at localhost:3000 to start the chat
+
 ### Coding style
 
 The chosen code style is [Standard](https://github.com/standard/standard)
