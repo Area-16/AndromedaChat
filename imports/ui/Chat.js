@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './Chat.css'
 import io from 'socket.io-client'
+import './Chat.css'
 
 class Chat extends Component {
   constructor (props) {
@@ -26,7 +26,7 @@ class Chat extends Component {
     this.setUser = this.setUser.bind(this)
   }
 
-  setUser (e) {
+  setUser () {
     if (this.state.username) {
       document.getElementById('user').setAttribute('disabled', 'true')
     }
@@ -43,6 +43,8 @@ class Chat extends Component {
       this.setState({
         message: ''
       })
+
+      document.getElementById('message').focus()
     }
   }
 
@@ -86,13 +88,13 @@ class Chat extends Component {
                   type='text' maxLength='20'
                   id='user'
                   placeholder={this.userHolder}
-                  className='form-control' onBlur={this.setUser}
+                  className='form-control' onBlur={() => this.setUser()}
                   value={this.state.username}
                   onChange={ev => this.setState({ username: ev.target.value })}
                 />
                 <br />
                 <input
-                  type='text'
+                  type='text' id='message'
                   placeholder={this.msgHolder}
                   className='form-control'
                   value={this.state.message}
