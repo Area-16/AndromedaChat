@@ -7,7 +7,7 @@
 .card-title {
   font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
   font-size: 32px;
-  color: firebrick;
+  color: rgb(76, 50, 94);
   text-align: center;
 }
 
@@ -17,4 +17,8 @@
 
 .messages {
   text-align: left;
+}
+
+.background {
+  background-color: blueviolet
 }
