@@ -1,6 +1,7 @@
 let serverBootstrap = () => {
   const server = require('express')()
-  let io = require('socket.io')
+  const io = require('socket.io')
+  const moment = require('moment')
 
   let app = server.listen(3080, () => {
     console.log('servidor rodando na porta 3080')
@@ -10,8 +11,7 @@ let serverBootstrap = () => {
 
   socket.on('connection', socketServer => {
     socketServer.on('SEND_MESSAGE', data => {
-      data.time = new Date().getDate() + '/' + new Date().getMonth()
-      data.timeframe = new Date().getHours() + ':' + new Date().getMinutes()
+      data.timeframe = `${moment().hours()}:${moment().minutes()}`
       socket.emit('RECEIVE_MESSAGE', data)
     })
   })
