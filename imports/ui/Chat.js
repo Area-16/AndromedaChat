@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
-import './Chat.css'
 
 class Chat extends Component {
   constructor (props) {
     super(props)
-    this.userHolder = 'Digite seu nome de usuário do chat aqui...'
-    this.msgHolder = 'Digite sua mensagem aqui...'
+    this.userHolder = 'Digite seu usuário do chat aqui...'
+    this.msgHolder = 'Digite sua mensagem aqui, Enter para enviar...'
     this.state = {
       username: '',
       message: '',
@@ -14,16 +13,40 @@ class Chat extends Component {
       timeframe: '',
       messages: []
     }
-
     this.socket = io(`localhost:3080`)
     
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.addMessage(data)
     })
-    
+ 
     this.sendMessage = this.sendMessage.bind(this)
     this.keyVerify = this.keyVerify.bind(this)
     this.setUser = this.setUser.bind(this)
+    Chat.onChangeMessage = Chat.onChangeMessage.bind(this)
+    Chat.onChangeUser = Chat.onChangeUser.bind(this)
+    this.handleSend = this.handleSend.bind(this)
+  }
+  
+  componentDidMount() {
+    this.handleSend()
+  }
+
+  static async onChangeUser (e) {
+    await this.setState({...this.state, username: e.target.value })
+    this.handleSend()
+  }
+
+  static async onChangeMessage (e) {
+    await this.setState({...this.state, message: e.target.value })
+    this.handleSend()
+  }
+
+  handleSend () {
+    if (this.state.message && this.state.username) {
+      document.getElementById('btnEnvia').removeAttribute('disabled')
+    } else {
+      document.getElementById('btnEnvia').setAttribute('disabled', 'true')
+    }
   }
 
   setUser () {
@@ -34,7 +57,7 @@ class Chat extends Component {
 
   sendMessage (e) {
     e.preventDefault()
-    if (this.state.message) {
+    if (this.state.message && this.state.username) {
       this.socket.emit('SEND_MESSAGE', {
         author: this.state.username,
         message: this.state.message
@@ -45,6 +68,10 @@ class Chat extends Component {
       })
 
       document.getElementById('message').focus()
+    }
+
+    if (!this.state.username) {
+      document.getElementById('user').focus()
     }
   }
 
@@ -63,7 +90,7 @@ class Chat extends Component {
 
   render () {
     return (
-      <div className='container jumbotron'>
+      <div className='background container jumbotron'>
         <div className='row'>
           <div className='col-8 offset-md-2' align='center'>
             <div className='card'>
@@ -73,11 +100,11 @@ class Chat extends Component {
                   <hr />
                 </div>
                 <div className='messages'>
-                  {this.state.messages.map((message, index) => (
+                  {this.state.messages.map((text, index) => (
                     <div key={index}>
-                      <strong>{message.author}</strong>: {message.message}
+                      <strong>{text.author}</strong>: {text.message}
                       <div className='time'>
-                        {message.time} {message.timeframe}
+                        {text.timeframe}
                       </div>
                     </div>
                   ))}
@@ -90,7 +117,7 @@ class Chat extends Component {
                   placeholder={this.userHolder}
                   className='form-control' onBlur={() => this.setUser()}
                   value={this.state.username}
-                  onChange={ev => this.setState({ username: ev.target.value })}
+                  onChange={Chat.onChangeUser}
                 />
                 <br />
                 <input
@@ -99,14 +126,13 @@ class Chat extends Component {
                   className='form-control'
                   value={this.state.message}
                   onKeyPress={this.keyVerify}
-                  onChange={ev => this.setState({ message: ev.target.value })}
+                  onChange={Chat.onChangeMessage}
                 />
                 <br />
                 <button
                   id='btnEnvia'
-                  className='btn btn-success form-control'
-                  onClick={this.sendMessage}
-                >
+                  className='btn btn-outline-info btn-block'
+                  onClick={this.sendMessage} >
                   Enviar
                 </button>
               </div>
