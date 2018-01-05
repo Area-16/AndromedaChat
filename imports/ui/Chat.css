@@ -20,5 +20,9 @@
 }
 
 .background {
-  background-color: blueviolet
+  background-color: blueviolet;
+}
+
+body {
+  background-color: blueviolet;
 }
