@@ -12,7 +12,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 First install [Meteor.js](https://www.meteor.com/install)
 
-
 ### Installing
 
 ```sh
@@ -33,7 +32,6 @@ Open your browser at localhost:3000 to start the chat
 
 The chosen code style is [Standard](https://github.com/standard/standard)
 
-
 ## Built With
 
 * [Meteor](https://www.meteor.com/) - The web framework used
@@ -41,11 +39,11 @@ The chosen code style is [Standard](https://github.com/standard/standard)
 * [Express](http://expressjs.com/) - The server framework used
 * [Socket.io](https://socket.io/) - The real-time engine used
 
-## Authors
+## Author
 
 * [Douglas Alves](https://github.com/dougtq)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
