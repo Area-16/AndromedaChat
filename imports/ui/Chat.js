@@ -13,8 +13,8 @@ class Chat extends Component {
       timeframe: '',
       messages: []
     }
-    this.socket = io(`localhost:3080`)
     
+    this.socket = io(`localhost:3080`)
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.addMessage(data)
     })
@@ -90,7 +90,7 @@ class Chat extends Component {
 
   render () {
     return (
-      <div className='background container jumbotron'>
+      <div className='background container-fluid jumbotron'>
         <div className='row'>
           <div className='col-8 offset-md-2' align='center'>
             <div className='card'>
