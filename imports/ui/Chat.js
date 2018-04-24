@@ -13,32 +13,49 @@ class Chat extends Component {
       timeframe: '',
       messages: []
     }
-    
-    this.socket = io(`localhost:3080`)
+
+    this.socket = io(`${process.env.SERVER_ADDR || 'localhost'}:${process.env.SERVER_PORT || '3080'}`)
     this.socket.on('RECEIVE_MESSAGE', data => {
       this.addMessage(data)
     })
- 
+    this.socket.on('SEND_STORED_MESSAGES', data => {
+      console.log(data)
+      this.loadMessages(data)
+    })
+
+    this.emitMessageLoader = this.emitMessageLoader.bind(this)
+    this.loadMessages = this.loadMessages.bind(this)
+    this.handleSend = this.handleSend.bind(this)
     this.sendMessage = this.sendMessage.bind(this)
     this.keyVerify = this.keyVerify.bind(this)
     this.setUser = this.setUser.bind(this)
     Chat.onChangeMessage = Chat.onChangeMessage.bind(this)
     Chat.onChangeUser = Chat.onChangeUser.bind(this)
-    this.handleSend = this.handleSend.bind(this)
   }
-  
-  componentDidMount() {
+
+  componentDidMount () {
     this.handleSend()
+    this.emitMessageLoader()
   }
 
   static async onChangeUser (e) {
-    await this.setState({...this.state, username: e.target.value })
+    await this.setState({ ...this.state, username: e.target.value })
     this.handleSend()
   }
 
   static async onChangeMessage (e) {
-    await this.setState({...this.state, message: e.target.value })
+    await this.setState({ ...this.state, message: e.target.value })
     this.handleSend()
+  }
+
+  emitMessageLoader () {
+    console.log('emitMessageLoader')
+    this.socket.emit('LOAD_MESSAGES')
+  }
+
+  loadMessages (data) {
+    console.log('loadMessages')
+    this.setState({ ...this.state, messages: data })
   }
 
   handleSend () {
@@ -59,12 +76,12 @@ class Chat extends Component {
     e.preventDefault()
     if (this.state.message && this.state.username) {
       this.socket.emit('SEND_MESSAGE', {
-        author: this.state.username,
+        user: this.state.username,
         message: this.state.message
       })
 
       this.setState({
-        message: ''
+        message: ''.trim()
       })
 
       document.getElementById('message').focus()
@@ -79,6 +96,7 @@ class Chat extends Component {
     this.setState({
       messages: [...this.state.messages, data]
     })
+    this.handleSend()
   }
 
   keyVerify (e) {
@@ -102,7 +120,7 @@ class Chat extends Component {
                 <div className='messages'>
                   {this.state.messages.map((text, index) => (
                     <div key={index}>
-                      <strong>{text.author}</strong>: {text.message}
+                      <strong>{text.user}</strong>: {text.message}
                       <div className='time'>
                         {text.timeframe}
                       </div>
@@ -120,7 +138,7 @@ class Chat extends Component {
                   onChange={Chat.onChangeUser}
                 />
                 <br />
-                <input
+                <textarea
                   type='text' id='message'
                   placeholder={this.msgHolder}
                   className='form-control'
